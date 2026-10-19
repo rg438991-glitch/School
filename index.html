@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>School Time Table Dashboard</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#fbf6ee;--card:#fff;--tx:#2b1a1f;--mu:#7a6a6e;--bd:#eadfd2;--ac:#7b1530;--acs:#f6e8d8;--now:#fff0c2;--nowb:#f2b01e;--onac:#fff}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1c1216;--card:#2a1b21;--tx:#f5eaea;--mu:#c3a9ae;--bd:#4a2f37;--ac:#f2b01e;--acs:#3d2630;--now:#4a3a14;--nowb:#f2b01e;--onac:#2b1a1f}}
+:root[data-theme="dark"]{--bg:#1c1216;--card:#2a1b21;--tx:#f5eaea;--mu:#c3a9ae;--bd:#4a2f37;--ac:#f2b01e;--acs:#3d2630;--now:#4a3a14;--nowb:#f2b01e;--onac:#2b1a1f}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans Devanagari",sans-serif;font-size:15px}
+.w{max-width:1000px;margin:0 auto;padding:0 14px 90px}
+.hero{background:linear-gradient(135deg,#7b1530,#4d0b1f);color:#fff;margin:0 -14px 14px;padding:18px 16px;border-radius:0 0 26px 26px;display:flex;gap:14px;align-items:center;box-shadow:0 6px 18px rgba(77,11,31,.25)}
+.hero svg{width:66px;height:66px;flex:none}
+.hero h1{color:#fff;font-size:19px;line-height:1.25}
+.hero small{display:block;color:#f6d98a;font-size:12.5px;margin-top:2px}
+.hero .clk{color:#f6d98a;text-align:left;margin-top:6px;font-size:12px}
+.row{box-shadow:0 2px 8px rgba(80,20,30,.07)}
+.row.cur{animation:pl 2.2s infinite}@keyframes pl{50%{box-shadow:0 0 0 5px rgba(242,176,30,.35)}}
+h1{font-size:19px;margin:0}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.clk{font-size:13px;color:var(--mu);text-align:right}
+.now{margin:12px 0;padding:12px 14px;border-radius:14px;background:var(--now);border:1px solid var(--nowb)}
+.now b{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--mu)}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:2px 0 8px}
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px));background:var(--card);border-top:1px solid var(--bd);box-shadow:0 -4px 16px rgba(0,0,0,.08)}
+.tabs button,.chips button{flex:none;border:1px solid var(--bd);background:var(--card);color:var(--tx);padding:7px 13px;border-radius:99px;font-size:14px;cursor:pointer}
+.tabs button.on,.chips button.on{background:var(--ac);color:var(--onac);border-color:var(--ac)}
+.tabs button{font-weight:600;flex:1;margin:0 3px;border-radius:14px;padding:10px 4px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin:4px 0 10px}
+.st{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:10px}
+.st b{font-size:20px;display:block}.st span{font-size:12px;color:var(--mu)}
+.row{display:flex;gap:12px;align-items:center;background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:11px 13px;margin-bottom:8px;border-left:5px solid var(--k,var(--ac))}
+.row.cur{background:var(--now);border-color:var(--nowb);border-left-color:var(--nowb)}
+.row .p{min-width:64px;font-size:12px;color:var(--mu)}.row .p strong{display:block;font-size:15px;color:var(--tx)}
+.row .m{flex:1}.row .m b{display:block}.row .m span{font-size:13px;color:var(--mu)}
+.band{text-align:center;font-size:13px;color:var(--mu);padding:8px;margin-bottom:8px;border:1px dashed var(--bd);border-radius:12px}
+.band.cur{background:var(--now);border-color:var(--nowb)}
+.free{opacity:.55}
+.gw{overflow-x:auto;border:1px solid var(--bd);border-radius:12px;background:var(--card)}
+table{border-collapse:collapse;width:100%;min-width:900px;font-size:12px}
+th,td{border:1px solid var(--bd);padding:6px;text-align:center;vertical-align:middle}
+th{background:var(--acs);position:sticky;top:0}
+td:first-child,th:first-child{position:sticky;left:0;background:var(--acs);font-weight:600;z-index:1;min-width:82px}
+td b{display:block;font-size:12px}td i{font-style:normal;color:var(--mu);font-size:11px}
+tr.cur td{background:var(--now)}tr.cur td:first-child{background:var(--now)}
+td.lz{color:var(--mu);font-style:italic}
+td.hl{outline:2px solid var(--ac);outline-offset:-2px}
+.k1{--k:#e8590c}.k2{--k:#2f9e44}.k3{--k:#3b5bdb}.k4{--k:#ae3ec9}.k5{--k:#0c8599}.k6{--k:#d6336c}.k0{--k:#868e96}
+.foot{margin-top:14px;font-size:12px;color:var(--mu);text-align:center}
+.clk2{cursor:pointer}.hl2{cursor:pointer;background:var(--acs)}
+.bd{display:block;font-style:normal;font-size:12.5px;margin-top:4px;color:var(--ac);font-weight:600}
+.sh{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:50;display:none;align-items:flex-end;justify-content:center}.sh.on{display:flex}
+.sc{background:var(--card);width:100%;max-width:600px;border-radius:22px 22px 0 0;padding:14px 16px calc(18px + env(safe-area-inset-bottom,0px));max-height:82vh;overflow:auto}
+.sc .gr{width:40px;height:4px;background:var(--bd);border-radius:9px;margin:0 auto 8px}.sc h3{margin:6px 0 0}.sc small{color:var(--mu)}
+.ci{margin-top:10px;padding:12px;border-radius:14px;border:1px solid var(--bd);border-left:5px solid #868e96;background:var(--bg)}
+.ci.cur{border-left-color:#2f9e44;background:var(--now)}.ci.done{border-left-color:#3b5bdb}.ci.next{border-left-color:#f08c00}
+.ci span{font-size:12px;color:var(--mu)}.ci b{display:block;font-size:13px;margin-top:2px}.ci div{font-size:17px;font-weight:600;margin:2px 0}.ci em{font-style:normal;font-size:12.5px}
+.sc button{margin-top:14px;width:100%;padding:12px;border:0;border-radius:12px;background:var(--ac);color:var(--onac);font-size:15px;font-weight:600}
+</style>
+</head>
+<body>
+<div class="w">
+<div class="hero"><svg viewBox="0 0 400 400"><circle cx="200" cy="200" r="196" fill="#f2b01e"/><circle cx="200" cy="200" r="168" fill="#fff"/><g transform="translate(0,-18)"><circle cx="200" cy="196" r="34" fill="#f28c00"/><path d="M200 274Q155 258 108 266V218Q155 210 200 230Z" fill="#fff" stroke="#1e8f4e" stroke-width="12" stroke-linejoin="round"/><path d="M200 274Q245 258 292 266V218Q245 210 200 230Z" fill="#fff" stroke="#1e8f4e" stroke-width="12" stroke-linejoin="round"/></g></svg><div><h1>Pankaj Higher Secondary School</h1><small>Gosai Patti, Kushinagar (U.P.) · Time Table</small><div class="clk" id="clk"></div></div></div>
+<div class="now" id="now"></div>
+<div class="tabs" id="tabs"></div>
+<div id="sel"></div>
+<div id="out"></div>
+<div class="foot">Prayer 9:00–9:15 · 7th period ke baad 2:15 PM par chhutti.</div>
+<div id="sh" class="sh" onclick="if(event.target===this)this.classList.remove('on')"><div class="sc" id="sc"></div></div>
+</div>
+<script>
+const T={SS:"Satish Sir",LS:"Lokesh Sir",PS:"Pappu Sir",PR:"Prince Sir",AM:"Anjali Miss",BM:"Babita Miss",MJ:"Ma’amji",PM:"Priyanka Miss",MM:"Manisha Miss",SM:"Saloni Miss",RM:"Ragini Miss",DS:"Director Sir",X:"—"};
+const C=["10th","9th","8th","7th","6th","5th","4th","3rd","2nd","1st","UKG/LKG"];
+const S=[
+{prayer:1,n:"Prayer",t:"9:00–9:15",s:540,e:555},
+{n:"1st",t:"9:15–10:00",s:555,e:600,d:"SS:Math I,II|LS:Hindi I,II|PS:English I,II|PR:Science|AM:Science|BM:English I,II|MJ:Science|PM:Math I,II|MM:Hindi I,II|SM:English I,II|RM:HW check · CW & HW provide"},
+{n:"2nd",t:"10:00–10:40",s:600,e:640,d:"LS:English|SS:Math I,II|PR:Science|PS:English I,II|BM:English I|MJ:Hindi I,II|AM:English I,II|RM:English I,II|SM:English I|PM:Science|MM:First bell in · Work copy"},
+{n:"3rd",t:"10:40–11:20",s:640,e:680,d:"BM:H.S + Art|PR:Science|RM:Hindi I,II|LS:English Writing + Discipline|SM:Hindi I,II|SS:Math I,II|MM:SST|AM:Science|PM:Science|MJ:SST|X:Drawing"},
+{n:"4th",t:"11:20–12:00",s:680,e:720,d:"PR:Science|BM:H.S + Art|PM:SST|RM:SST|PS:English II|SM:G.K + Art|SS:Math|MM:Hindi I,II|AM:Math|X:Math|MJ:Alphabet book + Writing"},
+{lunch:1,n:"Lunch",t:"12:00–12:30",s:720,e:750},
+{n:"5th",t:"12:30–1:05",s:750,e:785,d:"DS:Hindi I,II|LS:English|SS:Math|BM:Hindi I,II|MJ:H.S + G.K + Art|RM:Science|PM:G.K + Art|PS:SST|SM:English II|MM:Hindi I,II|AM:अक्षर ज्ञान + मात्रा"},
+{n:"6th",t:"1:05–1:40",s:785,e:820,d:"LS:Combined Grammar|LS:Combined Grammar|PS:English I,II|MJ:H.S + G.K + Art|SS:Math|PM:English (only read)|RM:English read|SM:G.K + Art|BM:SST|AM:G.K + Art|MM:Rhymes + Story"},
+{n:"7th",t:"1:40–2:15",s:820,e:855,d:"LS:SST|PM:SST|BM:H.S + G.K + Art|SS:Math|PS:SST|MM:SST|X:Hindi|MJ:English Book read|AM:G.K + Art|RM:Math|SM:Math book filling"}
+];
+S.forEach(p=>{if(p.d)p.c=p.d.split("|").map(x=>{const i=x.indexOf(":");return{t:x.slice(0,i),s:x.slice(i+1)}})});
+const K=s=>/math/i.test(s)?"k1":/science/i.test(s)?"k2":/english|grammar/i.test(s)?"k3":/hindi|अक्षर/i.test(s)?"k4":/sst|h\.s/i.test(s)?"k5":/g\.k|art|draw/i.test(s)?"k6":"k0";
+const st={v:"class",c:0,t:"SS"};
+const CH={
+3:[{sub:"विज्ञान",no:6,name:"भौतिक और रासायनिक परिवर्तन",st:"cur"}],
+2:[{sub:"विज्ञान",no:6,name:"दहन और ज्वाला",st:"cur"}],
+1:[{sub:"रसायन विज्ञान · Chemistry",no:2,name:"क्या हमारे आस-पास के पदार्थ शुद्ध हैं?",st:"cur"},{sub:"भौतिक विज्ञान · Physics",no:3,name:"गुरुत्वाकर्षण",st:"done"}],
+0:[{sub:"रसायन विज्ञान · Chemistry",no:2,name:"अम्ल, क्षार एवं लवण",st:"cur"},{sub:"भौतिक विज्ञान · Physics",no:3,name:"विद्युत",st:"next"}]};
+const SN={cur:"🟢 अभी पढ़ाया जा रहा है",done:"✅ पूरा हो चुका है",next:"⏭️ आगे पढ़ाना है"};
+function CHS(c){const a=CH[c].find(x=>x.st==="cur")||CH[c][0];return "Ch "+a.no+" · "+a.name}
+function CHN(c){const a=CH[c].find(x=>x.st==="cur")||CH[c][0];return "Ch "+a.no}
+function openCh(c){$("sc").innerHTML='<div class="gr"></div><h3>Class '+C[c]+' · Science</h3><small>👤 '+T.PR+'</small>'+CH[c].map(x=>`<div class="ci ${x.st}"><span>${x.sub}</span><b>अध्याय ${x.no}</b><div>${x.name}</div><em>${SN[x.st]}</em></div>`).join("")+'<button onclick="$(\'sh\').classList.remove(\'on\')">बंद करें</button>';$("sh").classList.add("on")}
+const $=id=>document.getElementById(id);
+function cur(){const d=new Date(),m=d.getHours()*60+d.getMinutes();return S.findIndex(p=>m>=p.s&&m<p.e)}
+function tick(){
+const d=new Date(),i=cur();
+$("clk").textContent=d.toLocaleDateString("en-IN",{weekday:"long",day:"numeric",month:"short"})+" · "+d.toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit"});
+let h;
+if(i<0)h="<b>Abhi</b>School time (9:00 AM – 2:15 PM) ke bahar hai (chhutti).";
+else{const p=S[i];
+ if(p.prayer)h="<b>Abhi</b>🙏 Prayer ("+p.t+")";
+ else if(p.lunch)h="<b>Abhi</b>🍱 Lunch Time ("+p.t+")";
+ else if(p.zero)h="<b>Abhi · Zero Bell ("+p.t+")</b>Sabhi teachers class lekar Discipline aur Language maintain karein.";
+ else if(st.v==="teacher"){const a=p.c.map((x,j)=>x.t===st.t?C[j]+" – "+x.s:null).filter(Boolean);h="<b>Abhi · Period "+p.n+" ("+p.t+")</b>"+T[st.t]+": "+(a.length?a.join(", "):"Free period")}
+ else{const x=p.c[st.c];h="<b>Abhi · Period "+p.n+" ("+p.t+") · Class "+C[st.c]+"</b>"+x.s+" — "+T[x.t]}}
+$("now").innerHTML=h}
+function tabs(){
+$("tabs").innerHTML=[["class","🏫 Class"],["teacher","👩‍🏫 Teacher"],["grid","📋 Full Table"]].map(([k,l])=>`<button class="${st.v===k?"on":""}" onclick="st.v='${k}';draw()">${l}</button>`).join("");
+let h="";
+if(st.v==="class")h=C.map((c,i)=>`<button class="${st.c===i?"on":""}" onclick="st.c=${i};draw()">${c}</button>`).join("");
+if(st.v==="teacher")h=Object.keys(T).filter(k=>k!=="X").map(k=>`<button class="${st.t===k?"on":""}" onclick="st.t='${k}';draw()">${T[k]}</button>`).join("");
+$("sel").innerHTML=h?`<div class="chips">${h}</div>`:""}
+function band(p,i){return `<div class="band ${cur()===i?"cur":""}">${p.lunch?"🍱 Lunch":"🙏 Prayer"} · ${p.t}</div>`}
+function classView(){
+let o=`<div class="stats"><div class="st"><b>${C[st.c]}</b><span>Class</span></div><div class="st"><b>${new Set(S.filter(p=>p.c).map(p=>p.c[st.c].t)).size}</b><span>Teachers</span></div><div class="st"><b>${S.filter(p=>p.c).length}</b><span>Periods</span></div></div>`;
+S.forEach((p,i)=>{if(!p.c){o+=band(p,i);return}const x=p.c[st.c],h=x.t==="PR"&&CH[st.c];
+o+=`<div class="row ${K(x.s)} ${cur()===i?"cur":""} ${h?"clk2":""}"${h?` onclick="openCh(${st.c})"`:""}><div class="p"><strong>${p.n}</strong>${p.t}</div><div class="m"><b>${x.s}</b><span>👤 ${T[x.t]}</span>${h?`<em class="bd">📖 ${CHS(st.c)} · tap karein</em>`:""}</div></div>`});
+return o}
+function teacherView(){
+let n=0,o="",rows="";
+S.forEach((p,i)=>{if(!p.c){rows+=band(p,i);return}
+const cl=p.c.map((x,j)=>x.t===st.t?{c:C[j],s:x.s,j}:null).filter(Boolean);
+if(cl.length){n++;const h=st.t==="PR"&&CH[cl[0].j];rows+=`<div class="row ${K(cl[0].s)} ${cur()===i?"cur":""} ${h?"clk2":""}"${h?` onclick="openCh(${cl[0].j})"`:""}><div class="p"><strong>${p.n}</strong>${p.t}</div><div class="m"><b>${cl.map(x=>x.c).join(" + ")}</b><span>${cl[0].s}</span>${h?`<em class="bd">📖 ${CHS(cl[0].j)} · tap karein</em>`:""}</div></div>`}
+else rows+=`<div class="row free ${cur()===i?"cur":""}"><div class="p"><strong>${p.n}</strong>${p.t}</div><div class="m"><b>Free</b></div></div>`});
+o=`<div class="stats"><div class="st"><b>${n}</b><span>Periods</span></div><div class="st"><b>${7-n}</b><span>Free</span></div></div>`;
+return o+rows}
+function grid(){
+const ci=cur();
+let o=`<div class="gw"><table><tr><th>Period</th>${C.map(c=>`<th>${c}</th>`).join("")}</tr>`;
+S.forEach((p,i)=>{
+if(!p.c){o+=`<tr class="${ci===i?"cur":""}"><td>${p.n}<br><small>${p.t}</small></td><td class="lz" colspan="11">${p.lunch?"L U N C H – T I M E":"P R A Y E R"}</td></tr>`;return}
+o+=`<tr class="${ci===i?"cur":""}"><td>${p.n}<br><small>${p.t}</small></td>`;
+for(let j=0;j<11;j++){const x=p.c[j],y=p.c[j+1];let sp=1;const h=x.t==="PR"&&CH[j];
+ if(y&&y.t===x.t&&y.s===x.s&&j<10){sp=2}
+ o+=`<td colspan="${sp}"${h?` class="hl2" onclick="openCh(${j})"`:""}><b>${x.s}</b><i>${T[x.t]}</i>${h?`<i>📖 ${CHN(j)}</i>`:""}</td>`;if(sp===2)j++}
+o+="</tr>"});
+return o+"</table></div>"}
+function draw(){tabs();$("out").innerHTML=st.v==="class"?classView():st.v==="teacher"?teacherView():grid();tick()}
+draw();setInterval(tick,30000);
+</script>
+</body>
+</html>
