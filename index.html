@@ -4,42 +4,71 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>School Time Table Dashboard</title>
-<meta name="theme-color" content="#7b1530"><link rel="manifest" href="manifest.json"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#5b3df5"><link rel="manifest" href="manifest.json"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-192.png">
 <style>
-:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#fbf6ee;--card:#fff;--tx:#2b1a1f;--mu:#7a6a6e;--bd:#eadfd2;--ac:#7b1530;--acs:#f6e8d8;--now:#fff0c2;--nowb:#f2b01e;--onac:#fff}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1c1216;--card:#2a1b21;--tx:#f5eaea;--mu:#c3a9ae;--bd:#4a2f37;--ac:#f2b01e;--acs:#3d2630;--now:#4a3a14;--nowb:#f2b01e;--onac:#2b1a1f}}
-:root[data-theme="dark"]{--bg:#1c1216;--card:#2a1b21;--tx:#f5eaea;--mu:#c3a9ae;--bd:#4a2f37;--ac:#f2b01e;--acs:#3d2630;--now:#4a3a14;--nowb:#f2b01e;--onac:#2b1a1f}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f3f2ff;--card:#fff;--tx:#1b1740;--mu:#6b6a8f;--bd:#e4e2f8;--ac:#5b3df5;--acs:#ebe8ff;--now:#fff3cf;--nowb:#ffb020;--onac:#fff}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12102b;--card:#1d1a42;--tx:#efeeff;--mu:#a9a7d6;--bd:#322f66;--ac:#9a86ff;--acs:#2a2660;--now:#4a3a14;--nowb:#ffb020;--onac:#12102b}}
+:root[data-theme="dark"]{--bg:#12102b;--card:#1d1a42;--tx:#efeeff;--mu:#a9a7d6;--bd:#322f66;--ac:#9a86ff;--acs:#2a2660;--now:#4a3a14;--nowb:#ffb020;--onac:#12102b}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans Devanagari",sans-serif;font-size:15px}
 .w{max-width:1000px;margin:0 auto;padding:0 14px 90px}
-.hero{background:linear-gradient(135deg,#7b1530,#4d0b1f);color:#fff;margin:0 -14px 14px;padding:18px 16px;border-radius:0 0 26px 26px;display:flex;gap:14px;align-items:center;box-shadow:0 6px 18px rgba(77,11,31,.25)}
+.hero{background:linear-gradient(135deg,#4f2fe0,#8b5cf6 60%,#c04bd8);color:#fff;margin:0 -14px 14px;padding:20px 16px 22px;border-radius:0 0 32px 32px;display:flex;gap:14px;align-items:center;box-shadow:0 8px 24px rgba(91,61,245,.3);position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-44px;top:-56px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.1)}
+.hero>*{position:relative;z-index:1}
 .hero svg{width:66px;height:66px;flex:none}
-.hero h1{color:#fff;font-size:19px;line-height:1.25}
+.hero h1{color:#fff;font-size:21px;line-height:1.2;font-family:"Baloo 2","Trebuchet MS",system-ui,sans-serif;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 0 rgba(0,0,0,.2)}
 .hero small{display:block;color:#f6d98a;font-size:12.5px;margin-top:2px}
 .hero .clk{color:#f6d98a;text-align:left;margin-top:6px;font-size:12px}
-.row{box-shadow:0 2px 8px rgba(80,20,30,.07)}
+.row{box-shadow:0 4px 14px rgba(91,61,245,.08)}
 .row.cur{animation:pl 2.2s infinite}@keyframes pl{50%{box-shadow:0 0 0 5px rgba(242,176,30,.35)}}
 h1{font-size:19px;margin:0}
 .top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
 .clk{font-size:13px;color:var(--mu);text-align:right}
-.now{margin:12px 0;padding:12px 14px;border-radius:14px;background:var(--now);border:1px solid var(--nowb)}
+.now{margin:12px 0;padding:13px 15px;border-radius:20px;background:var(--now);border:1px solid var(--nowb)}
 .now b{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--mu)}
 .chips{display:flex;gap:6px;overflow-x:auto;padding:2px 0 8px}
-.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px));background:var(--card);border-top:1px solid var(--bd);box-shadow:0 -4px 16px rgba(0,0,0,.08)}
+.tabs{position:fixed;left:10px;right:10px;bottom:10px;z-index:20;display:flex;padding:6px;background:var(--card);border:1px solid var(--bd);border-radius:24px;box-shadow:0 8px 28px rgba(60,40,160,.25)}
 .tabs button,.chips button{flex:none;border:1px solid var(--bd);background:var(--card);color:var(--tx);padding:7px 13px;border-radius:99px;font-size:14px;cursor:pointer}
 .tabs button.on,.chips button.on{background:var(--ac);color:var(--onac);border-color:var(--ac)}
-.tabs button{font-weight:600;flex:1;margin:0 2px;border-radius:14px;padding:8px 2px;font-size:12px;line-height:1.3}
+.tabs button{font-weight:600;flex:1;margin:0 2px;border:0;background:transparent;border-radius:18px;padding:8px 2px;font-size:12px;line-height:1.3}
 .nbn{background:var(--acs);border-radius:12px;padding:9px 12px;margin-bottom:10px;font-size:13px}
 .hd{margin:16px 0 8px;font-size:15px}
+.w .tcb.tcb{border:0;color:#fff;font-weight:700;padding:10px 16px;border-radius:16px;background:linear-gradient(180deg,color-mix(in srgb,var(--tc) 76%,#fff),var(--tc));box-shadow:0 5px 0 color-mix(in srgb,var(--tc) 60%,#000),0 9px 14px rgba(0,0,0,.2);text-shadow:0 1px 0 rgba(0,0,0,.28);margin-bottom:7px;transition:transform .08s}
+.w .tcb.tcb:active{transform:translateY(4px);box-shadow:0 1px 0 color-mix(in srgb,var(--tc) 60%,#000)}
+.w .tcb.tcb.on{outline:3px solid var(--tx);outline-offset:2px}
+.w .qa .tcb.tcb{padding:17px 6px;border-radius:20px;font-size:14px}
+.w .qa button:not(.tcb){border-radius:22px;box-shadow:0 5px 0 var(--bd),0 10px 18px rgba(91,61,245,.14)}
+.w .qa button:not(.tcb):active{transform:translateY(4px);box-shadow:0 1px 0 var(--bd)}
+.w .row{border-bottom:4px solid color-mix(in srgb,var(--k,var(--ac)) 40%,var(--bd))}
+.w .tcr{background:linear-gradient(135deg,color-mix(in srgb,var(--k) 14%,var(--card)),var(--card))}
+.w .tabs button.on{box-shadow:0 3px 0 rgba(0,0,0,.28);transform:translateY(-2px)}
+.row .m em.bd{display:inline-block;background:linear-gradient(135deg,#16a34a,#4ade80);color:#fff;padding:3px 10px;border-radius:99px;font-size:12px;box-shadow:0 3px 0 #15803d}
+.sc .ci{border:0;color:#fff;border-radius:18px;padding:14px;margin-top:14px}
+.sc .ci.cur{background:linear-gradient(135deg,#16a34a,#4ade80);box-shadow:0 5px 0 #15803d,0 10px 18px rgba(22,163,74,.35)}
+.sc .ci.done{background:linear-gradient(135deg,#2563eb,#60a5fa);box-shadow:0 5px 0 #1d4ed8,0 10px 18px rgba(37,99,235,.3)}
+.sc .ci.next{background:linear-gradient(135deg,#ea580c,#fbbf24);box-shadow:0 5px 0 #c2410c,0 10px 18px rgba(234,88,12,.3)}
+.sc .ci span,.sc .ci b,.sc .ci em{color:rgba(255,255,255,.92)}.sc .ci div{color:#fff;font-size:18px}
+.m1::before{content:"📢"}.m2::before{content:"📝"}.m3::before{content:"📚"}
+.wl{display:flex;gap:14px;align-items:center;margin:4px 0 14px}.av{width:70px;height:70px;flex:none;border-radius:50%;border:3px solid var(--tx);display:grid;place-items:center;font-size:24px;font-weight:700;background:var(--acs);color:var(--ac)}
+.wl small{color:var(--mu)}.wl h2{margin:0;font-size:23px}.pill{display:inline-block;background:var(--acs);color:var(--ac);padding:5px 12px;border-radius:99px;font-size:13px;font-weight:600;margin-top:6px}
+.big{background:linear-gradient(135deg,#5b3df5,#7c3aed);color:#fff;border-radius:28px;padding:16px;margin-bottom:16px;box-shadow:0 12px 28px rgba(91,61,245,.3)}
+.big .tp{display:flex;justify-content:space-between}.big .ch{background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.35);padding:6px 12px;border-radius:99px;font-size:13px}
+.big .mt{text-align:center;font-size:32px;font-weight:700;margin:14px 0 4px}.big .ms{text-align:center;opacity:.92;font-size:14px}
+.big .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}.big .g4 div{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);border-radius:16px;padding:10px 2px;text-align:center}.big .g4 b{display:block;font-size:19px}.big .g4 span{font-size:11px}
+.big .vd{display:block;width:100%;margin-top:12px;padding:13px;border-radius:16px;border:1px solid rgba(255,255,255,.4);background:rgba(255,255,255,.18);color:#fff;font-size:16px;font-weight:600}
+.qa{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.qa button{background:var(--card);border:1px solid var(--bd);border-radius:22px;padding:16px 4px 12px;color:var(--tx);font-size:13px;font-weight:600;box-shadow:0 4px 14px rgba(91,61,245,.08)}.qa i{display:grid;place-items:center;width:52px;height:52px;margin:0 auto 8px;border-radius:16px;font-size:24px;font-style:normal}
 .btn{padding:10px 14px;border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:12px;margin:4px 4px 4px 0;font-size:14px}
 .wab{margin-left:auto;flex:none;border:0;background:rgba(255,255,255,.18);color:#fff;border-radius:50%;width:42px;height:42px;font-size:18px}
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin:4px 0 10px}
-.st{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:10px}
-.st b{font-size:20px;display:block}.st span{font-size:12px;color:var(--mu)}
-.row{display:flex;gap:12px;align-items:center;background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:11px 13px;margin-bottom:8px;border-left:5px solid var(--k,var(--ac))}
+.st{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:12px;box-shadow:0 4px 14px rgba(91,61,245,.08)}
+.st b{font-size:20px;display:block;color:var(--ac)}.st span{font-size:12px;color:var(--mu)}
+.row{display:flex;gap:12px;align-items:center;background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:12px 14px;margin-bottom:10px}
+.row::before{content:"📌";flex:none;width:44px;height:44px;border-radius:14px;display:grid;place-items:center;font-size:21px;background:color-mix(in srgb,var(--k,var(--ac)) 16%,transparent)}
+.k1::before{content:"➗"}.k2::before{content:"🔬"}.k3::before{content:"🔤"}.k4::before{content:"अ";font-weight:700;color:var(--k)}.k5::before{content:"🌍"}.k6::before{content:"🎨"}.k7::before{content:"🟢"}
 .row.cur{background:var(--now);border-color:var(--nowb);border-left-color:var(--nowb)}
-.row .p{min-width:64px;font-size:12px;color:var(--mu)}.row .p strong{display:block;font-size:15px;color:var(--tx)}
+.row .p{min-width:56px;font-size:11px;color:var(--mu)}.row .p strong{display:block;font-size:15px;color:var(--tx)}
 .row .m{flex:1}.row .m b{display:block}.row .m span{font-size:13px;color:var(--mu)}
 .band{text-align:center;font-size:13px;color:var(--mu);padding:8px;margin-bottom:8px;border:1px dashed var(--bd);border-radius:12px}
 .band.cur{background:var(--now);border-color:var(--nowb)}
@@ -78,7 +107,7 @@ td.hl{outline:2px solid var(--ac);outline-offset:-2px}
 <div id="sh" class="sh" onclick="if(event.target===this)this.classList.remove('on')"><div class="sc" id="sc"></div></div>
 </div>
 <script>
-const T={SS:"Satish Sir",LS:"Lokesh Sir",PS:"Pappu Sir",PR:"Prince Sir",AM:"Anjali Miss",BM:"Babita Miss",MJ:"Ma’amji",PM:"Priyanka Miss",MM:"Manisha Miss",SM:"Saloni Miss",RM:"Ragini Miss",DS:"Director Sir",X:"—"};
+const T={DS:"Director Sir",SS:"Satish Sir",LS:"Lokesh Sir",PS:"Pappu Sir",PR:"Prince Sir",AM:"Anjali Miss",BM:"Babita Miss",MJ:"Ma’amji",PM:"Priyanka Miss",MM:"Manisha Miss",SM:"Saloni Miss",RM:"Ragini Miss",X:"—"};
 const C=["10th","9th","8th","7th","6th","5th","4th","3rd","2nd","1st","UKG/LKG"];
 const S=[
 {prayer:1,n:"Prayer",t:"9:00–9:15",s:540,e:555},
@@ -93,7 +122,8 @@ const S=[
 ];
 S.forEach(p=>{if(p.d)p.c=p.d.split("|").map(x=>{const i=x.indexOf(":");return{t:x.slice(0,i),s:x.slice(i+1)}})});
 const K=s=>/math/i.test(s)?"k1":/science/i.test(s)?"k2":/english|grammar/i.test(s)?"k3":/hindi|अक्षर/i.test(s)?"k4":/sst|h\.s/i.test(s)?"k5":/g\.k|art|draw/i.test(s)?"k6":"k0";
-const st={v:"class",c:0,t:"SS"};
+let ME=null;try{ME=localStorage.getItem("me")}catch(e){}
+const st={v:"home",c:0,t:T[ME]?ME:"SS"};
 const CH={
 3:[{sub:"विज्ञान",no:6,name:"भौतिक और रासायनिक परिवर्तन",st:"cur"}],
 2:[{sub:"विज्ञान",no:6,name:"दहन और ज्वाला",st:"cur"}],
@@ -102,22 +132,40 @@ const CH={
 const SN={cur:"🟢 अभी पढ़ाया जा रहा है",done:"✅ पूरा हो चुका है",next:"⏭️ आगे पढ़ाना है"};
 function CHS(c){const a=CH[c].find(x=>x.st==="cur")||CH[c][0];return "Ch "+a.no+" · "+a.name}
 function CHN(c){const a=CH[c].find(x=>x.st==="cur")||CH[c][0];return "Ch "+a.no}
-const NOTICES=[{d:"",t:"प्रार्थना सुबह 9:00 बजे होती है, सभी बच्चे समय पर पहुँचें।"}],EX=[],CT={};
+const NOTICES=[{d:"",t:"प्रार्थना सुबह 9:00 बजे होती है, सभी बच्चे समय पर पहुँचें।"}],EX=[],CT={};S[1].c.forEach((x,j)=>CT[j]=T[x.t]);
 let LG="hn";try{LG=localStorage.getItem("lg")||"hn"}catch(e){}
 const LN={hn:"Hinglish",hi:"हिंदी",en:"English"};
 function setLg(){const n={hn:"hi",hi:"en",en:"hn"}[LG];try{localStorage.setItem("lg",n)}catch(e){}location.reload()}
 const DD={en:[["School time (9:00 AM – 2:15 PM) ke bahar hai (chhutti).","Outside school hours (9:00 AM – 2:15 PM)."],["Prayer 9:00–9:15 · 7th period ke baad 2:15 PM par chhutti.","Prayer 9:00–9:15 · School ends at 2:15 PM after the 7th period."],["Is period me koi teacher free nahi hai.","No teacher is free in this period."],["Abhi koi suchna nahi hai.","No notices right now."],["Datesheet abhi nahi judi hai.","Datesheet not added yet."],["tap karein","tap to view"],["Abhi","Now"]],
 hi:[["School time (9:00 AM – 2:15 PM) ke bahar hai (chhutti).","स्कूल समय (9:00–2:15) के बाहर है।"],["Prayer 9:00–9:15 · 7th period ke baad 2:15 PM par chhutti.","प्रार्थना 9:00–9:15 · 7वें पीरियड के बाद 2:15 बजे छुट्टी।"],["Is period me koi teacher free nahi hai.","इस घंटी में कोई शिक्षक खाली नहीं है।"],["Abhi koi suchna nahi hai.","अभी कोई सूचना नहीं है।"],["Datesheet abhi nahi judi hai.","डेटशीट अभी नहीं जुड़ी है।"],["tap karein","देखने के लिए टैप करें"],["Abhi","अभी"],["Teachers","शिक्षक"],["Teacher","शिक्षक"],["Periods","घंटियाँ"],["Lunch","भोजनावकाश"],["Prayer","प्रार्थना"],["Free","खाली"],["Class","कक्षा"],["Table","सारणी"],["Info","सूचना"],["Notice","सूचना"]]};
 function tr(){if(LG==="hn")return;const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;while(n=w.nextNode()){if(n.parentNode.tagName==="SCRIPT")continue;let s=n.nodeValue;for(const[a,b]of DD[LG])s=s.split(a).join(b);if(s!==n.nodeValue)n.nodeValue=s}}
+const PAL=["#5b3df5","#e8590c","#16a34a","#db2777","#0891b2","#ca8a04","#7c3aed","#dc2626","#0d9488","#2563eb","#9333ea","#ea580c"];
+function TC(k){return PAL[Object.keys(T).indexOf(k)%PAL.length]}
+function go(v){st.v=v;if(v==="teacher"&&ME)st.t=ME;draw();scrollTo(0,0)}
+function setMe(k){ME=k;try{k?localStorage.setItem("me",k):localStorage.removeItem("me")}catch(e){}if(k)st.t=k;draw()}
+function homeView(){
+if(!ME||!T[ME])return '<h3 class="hd">👋 Aap kaun hain?</h3><div class="band">Apna naam chuniye</div><div class="qa">'+Object.keys(T).filter(k=>k!=="X").map(k=>`<button class="tcb" style="--tc:${TC(k)}" onclick="setMe('${k}')">${T[k]}</button>`).join("")+'</div>';
+const m=new Date(),now=m.getHours()*60+m.getMinutes(),mine=S.filter(p=>p.c&&p.c.some(x=>x.t===ME)),tp=S.filter(p=>p.c).length,cls=new Set();
+mine.forEach(p=>p.c.forEach((x,j)=>{if(x.t===ME)cls.add(j)}));
+const myCT=C.filter((c,j)=>CT[j]===T[ME]),desc=p=>p.c.map((x,j)=>x.t===ME?C[j]+" "+x.s:null).filter(Boolean)[0];
+const run=mine.find(p=>now>=p.s&&now<p.e),nx=mine.find(p=>p.s>now);let big="—",sub="Aaj ke periods poore ho gaye";
+if(run){big="Period "+run.n;sub="Abhi: "+desc(run)}else if(nx){big="Period "+nx.n;sub="Agla: "+nx.t.split("–")[0]+" · "+desc(nx)}
+const ini=T[ME].split(" ").map(w=>w[0]).join(""),tile=(e,l,f,c)=>`<button onclick="${f}"><i style="background:${c}">${e}</i>${l}</button>`;
+return `<div class="wl"><div class="av">${ini}</div><div><small>Welcome back,</small><h2>${T[ME]}</h2><span class="pill">${myCT.length?"Class Teacher · "+myCT.join(", "):"Teacher"}</span></div></div>
+<div class="big"><div class="tp"><span class="ch">📅 ${m.toLocaleDateString("en-IN",{weekday:"long"})}</span><span class="ch">${mine.length} Periods</span></div><div class="mt">${big}</div><div class="ms">${sub}</div>
+<div class="g4"><div><b>${mine.length}</b><span>Periods</span></div><div><b>${tp-mine.length}</b><span>Free</span></div><div><b>${cls.size}</b><span>Classes</span></div><div><b>${myCT[0]||"—"}</b><span>Class T.</span></div></div>
+<button class="vd" onclick="go('teacher')">View Details ›</button></div>
+<h3 class="hd">Quick Actions</h3><div class="qa">${tile("🗓️","My Table","go('teacher')","#ebe8ff")}${tile("🏫","Class View","go('class')","#ccfbf1")}${tile("📋","Full Table","go('grid')","#fef3c7")}${tile("🟢","Free Teachers","go('free')","#dcfce7")}${tile("📚","Syllabus","go('syl')","#fce7f3")}${tile("📢","Notice","go('notice')","#ffedd5")}${tile("📝","Exam","go('exam')","#e0f2fe")}${tile("📤","WhatsApp","go('teacher');shareWA()","#dcfce7")}${tile("👤","Teacher badlein","setMe(null)","#f1f5f9")}</div>`}
 function freeView(){const ps=S.map((p,i)=>[p,i]).filter(([p])=>p.c);if(st.fp==null){const ci=cur();st.fp=ci>=0&&S[ci].c?ci:ps[0][1]}
 let o='<div class="chips">'+ps.map(([p,i])=>`<button class="${st.fp===i?"on":""}" onclick="st.fp=${i};draw()">${p.n}</button>`).join("")+'</div>';
 const p=S[st.fp],bz=new Set(p.c.map(x=>x.t)),fr=Object.keys(T).filter(k=>k!=="X"&&!bz.has(k));
 o+=`<div class="stats"><div class="st"><b>${fr.length}</b><span>Free</span></div><div class="st"><b>${p.t}</b><span>Period ${p.n}</span></div></div>`;
-return o+(fr.length?fr.map(k=>`<div class="row k2"><div class="p"><strong>${p.n}</strong>${p.t}</div><div class="m"><b>${T[k]}</b><span>Free</span></div></div>`).join(""):'<div class="band">Is period me koi teacher free nahi hai.</div>')}
-function infoView(){let o='<h3 class="hd">📢 Notice</h3>'+(NOTICES.length?NOTICES.map(n=>`<div class="row k0"><div class="m"><b>${n.t}</b><span>${n.d||""}</span></div></div>`).join(""):'<div class="band">Abhi koi suchna nahi hai.</div>');
+return o+(fr.length?fr.map(k=>`<div class="row k7 tcr" style="--k:${TC(k)}"><div class="p"><strong>${p.n}</strong>${p.t}</div><div class="m"><b>${T[k]}</b><span>Free</span></div></div>`).join(""):'<div class="band">Is period me koi teacher free nahi hai.</div>')}
+function infoView(w){if(!w)return menuView();const B='<button class="btn" onclick="go(\'info\')">‹ Back</button>';let o='<h3 class="hd">📢 Notice</h3>'+(NOTICES.length?NOTICES.map(n=>`<div class="row k0"><div class="m"><b>${n.t}</b><span>${n.d||""}</span></div></div>`).join(""):'<div class="band">Abhi koi suchna nahi hai.</div>');
 o+='<h3 class="hd">📝 Exam Datesheet</h3>'+(EX.length?`<div class="gw"><table style="min-width:0"><tr><th>Date</th><th>Class</th><th>Subject</th></tr>${EX.map(e=>`<tr><td>${e.d}</td><td>${e.c}</td><td>${e.s}</td></tr>`).join("")}</table></div>`:'<div class="band">Datesheet abhi nahi judi hai.</div>');
-o+='<h3 class="hd">📚 Syllabus Progress</h3>'+Object.keys(CH).sort((a,b)=>b-a).map(c=>`<div class="row k5 clk2" onclick="openCh(${c})"><div class="p"><strong>${C[c]}</strong>Science</div><div class="m"><b>${CHS(c)}</b><span>${CH[c].map(x=>x.st==="done"?"✅":x.st==="next"?"⏭️":"🟢").join(" ")} · ${T.PR}</span></div></div>`).join("");
-return o+'<h3 class="hd">⚙️ Settings</h3><button class="btn" onclick="setLg()">🌐 '+LN[LG]+'</button><button class="btn" onclick="shareWA()">📤 WhatsApp</button><div class="band">Home screen: Chrome ⋮ → Add to Home screen</div>'}
+o+='<h3 class="hd">📚 Syllabus Progress</h3>'+Object.keys(CH).sort((a,b)=>b-a).map(c=>`<div class="row k2 clk2" onclick="openCh(${c})"><div class="p"><strong>${C[c]}</strong>Science</div><div class="m"><b>${CHS(c)}</b><span>${CH[c].map(x=>x.st==="done"?"✅":x.st==="next"?"⏭️":"🟢").join(" ")} · ${T.PR}</span></div></div>`).join("");
+return B+'<h3 class="hd">'+o.split('<h3 class="hd">')[{n:1,e:2,s:3}[w]]}
+function menuView(){const r=(i,l,n,v)=>`<div class="row k0 m${i} clk2" onclick="go('${v}')"><div class="m"><b>${l}</b><span>${n}</span></div></div>`;return r(1,"Notice",NOTICES.length+" suchna","notice")+r(2,"Exam Datesheet",EX.length+" exam","exam")+r(3,"Syllabus",Object.keys(CH).length+" classes","syl")+'<h3 class="hd">⚙️ Settings</h3><button class="btn" onclick="setLg()">🌐 '+LN[LG]+'</button><button class="btn" onclick="shareWA()">📤 WhatsApp</button><div class="band">Home screen: Chrome ⋮ → Add to Home screen</div>'}
 function shareWA(){let t="🏫 Pankaj Higher Secondary School\n";
 if(st.v==="class"){t+="📅 Class "+C[st.c]+" Time Table\n";S.forEach(p=>{if(p.c){const x=p.c[st.c];t+=p.n+" ("+p.t+"): "+x.s+" - "+T[x.t]+"\n"}})}
 else if(st.v==="teacher"){t+="👤 "+T[st.t]+"\n";S.forEach(p=>{if(p.c){const a=p.c.map((x,j)=>x.t===st.t?C[j]+" "+x.s:null).filter(Boolean);t+=p.n+" ("+p.t+"): "+(a.join(", ")||"Free")+"\n"}})}
@@ -138,10 +186,10 @@ else{const p=S[i];
  else{const x=p.c[st.c];h="<b>Abhi · Period "+p.n+" ("+p.t+") · Class "+C[st.c]+"</b>"+x.s+" — "+T[x.t]}}
 $("now").innerHTML=h;tr()}
 function tabs(){
-$("tabs").innerHTML=[["class","🏫<br>Class"],["teacher","👩‍🏫<br>Teacher"],["grid","📋<br>Table"],["free","🟢<br>Free"],["info","📢<br>Info"]].map(([k,l])=>`<button class="${st.v===k?"on":""}" onclick="st.v='${k}';draw()">${l}</button>`).join("");
+$("tabs").innerHTML=[["home","🏠<br>Home"],["class","🏫<br>Class"],["teacher","👩‍🏫<br>Teacher"],["free","🟢<br>Free"],["info","📢<br>Info"]].map(([k,l])=>`<button class="${st.v===k||(k==="info"&&["notice","exam","syl"].includes(st.v))?"on":""}" onclick="st.v='${k}';draw()">${l}</button>`).join("");
 let h="";
 if(st.v==="class")h=C.map((c,i)=>`<button class="${st.c===i?"on":""}" onclick="st.c=${i};draw()">${c}</button>`).join("");
-if(st.v==="teacher")h=Object.keys(T).filter(k=>k!=="X").map(k=>`<button class="${st.t===k?"on":""}" onclick="st.t='${k}';draw()">${T[k]}</button>`).join("");
+if(st.v==="teacher")h=Object.keys(T).filter(k=>k!=="X").map(k=>`<button class="tcb ${st.t===k?"on":""}" style="--tc:${TC(k)}" onclick="st.t='${k}';draw()">${T[k]}</button>`).join("");
 $("sel").innerHTML=h?`<div class="chips">${h}</div>`:""}
 function band(p,i){return `<div class="band ${cur()===i?"cur":""}">${p.lunch?"🍱 Lunch":"🙏 Prayer"} · ${p.t}</div>`}
 function classView(){
@@ -168,7 +216,7 @@ for(let j=0;j<11;j++){const x=p.c[j],y=p.c[j+1];let sp=1;const h=x.t==="PR"&&CH[
  o+=`<td colspan="${sp}"${h?` class="hl2" onclick="openCh(${j})"`:""}><b>${x.s}</b><i>${T[x.t]}</i>${h?`<i>📖 ${CHN(j)}</i>`:""}</td>`;if(sp===2)j++}
 o+="</tr>"});
 return o+"</table></div>"}
-function draw(){tabs();$("nb").innerHTML=NOTICES.length?`<div class="nbn">📢 ${NOTICES[0].t}</div>`:"";$("out").innerHTML={class:classView,teacher:teacherView,grid,free:freeView,info:infoView}[st.v]();tick()}
+function draw(){tabs();$("nb").innerHTML=NOTICES.length?`<div class="nbn">📢 ${NOTICES[0].t}</div>`:"";$("now").style.display=st.v==="home"?"none":"";$("out").innerHTML={home:homeView,class:classView,teacher:teacherView,grid,free:freeView,info:infoView,notice:()=>infoView("n"),exam:()=>infoView("e"),syl:()=>infoView("s")}[st.v]();tick()}
 draw();setInterval(tick,30000);
 </script>
 </body>
